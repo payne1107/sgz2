@@ -125,7 +125,7 @@ public class MineReleaseOrderFragment extends BaseFragment{
                 MineWorkOrderFragmentBean.DataBean.ListBean bean = mList.get(position);
                 if (bean != null) {
                     int projectId = bean.getId();
-                    //修改工单名称
+                    //编辑工单
                     motifyOrderNmae(projectId);
                 }
             }

@@ -72,9 +72,10 @@ class ToRechargeDetailsAdapter extends BaseAdapter {
             String number =bean.getUserflowno();
             String money =bean.getMoney();
             String remark = bean.getRemark();
+            String statusLabel = bean.getStatuslabel();
             holder.tvMoney.setText("+" + money + "元");
             holder.tvTime.setText("" + time);
-            holder.tvNumber.setText(StringUtils.isEmpty(remark) ? "" : remark);
+            holder.tvNumber.setText(StringUtils.isEmpty(statusLabel) ? "" : statusLabel);
         }
         return view;
     }

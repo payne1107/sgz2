@@ -3,6 +3,7 @@ package android.sgz.com.activity;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.sgz.com.R;
 import android.sgz.com.application.MyApplication;
@@ -53,6 +54,7 @@ public class SafeAnwserActivity extends BaseActivity implements View.OnClickList
 
         webView = (WebView) findViewById(R.id.webView);
         webView.loadUrl("http://52sgz.com/share/answer/");
+//        webView.loadUrl("http://52sgz.com/share/answer/ceshi.html");
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setLoadWithOverviewMode(true);
         //设置可以支持缩放
@@ -154,8 +156,17 @@ public class SafeAnwserActivity extends BaseActivity implements View.OnClickList
                     webView.loadUrl("javascript:show('" + MyApplication.isLogin + "')");
                 }
             });
-
         }
+        @JavascriptInterface
+        public void finance(){
+            SafeAnwserActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(mContext, MineExpendActivity.class));
+                }
+            });
+        }
+
 
         @JavascriptInterface
         public String getInfo(){

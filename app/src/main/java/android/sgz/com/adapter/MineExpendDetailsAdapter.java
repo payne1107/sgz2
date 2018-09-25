@@ -3,6 +3,7 @@ package android.sgz.com.adapter;
 import android.content.Context;
 import android.sgz.com.R;
 import android.sgz.com.bean.MineExpendDetailsBean;
+import android.sgz.com.utils.StringUtils;
 import android.sgz.com.widget.IRecycleViewOnItemClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.amap.api.services.route.RidePath;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.utils.AutoUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -66,6 +68,7 @@ public class MineExpendDetailsAdapter extends BaseAdapter {
             holder.allPaySalary =view.findViewById(R.id.tv_all_pay_salary);
             holder.layoutPaySalary =view.findViewById(R.id.layout_pay_salary);
             holder.tvToBePay =view.findViewById(R.id.tv_to_be_pay);
+            holder.tvAllowance =view.findViewById(R.id.tv_allowance);
             AutoUtils.autoSize(view);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -84,7 +87,14 @@ public class MineExpendDetailsAdapter extends BaseAdapter {
             //剩余需要支付工资 总工资-已支付工资
             Double toBePay = allSa - Double.parseDouble(paymentSalary);
 
-            holder.tvAllSalary.setText("" + allSa);
+            if (!StringUtils.isEmpty(addSalary)) {
+                BigDecimal bigDecimal1 = new BigDecimal(Double.parseDouble(addSalary));
+                BigDecimal bigDecimal2 = new BigDecimal(Double.parseDouble(allSalary));
+                double totalSalary = bigDecimal1.add(bigDecimal2).doubleValue();
+                holder.tvAllSalary.setText("" + totalSalary);
+            } else {
+                holder.tvAllSalary.setText("" + allSalary);
+            }
             holder.tvAddSalary.setText("加班工资：" + addSalary);
             holder.allPaySalary.setText("已支付:" + paymentSalary);
 
@@ -104,6 +114,7 @@ public class MineExpendDetailsAdapter extends BaseAdapter {
         TextView tvUserName,tvPhone,tvAllSalary,tvAddSalary,allPaySalary;
         AutoLinearLayout layoutPaySalary;
         public TextView tvToBePay;
+        public TextView tvAllowance;
     }
 
     private IRecycleViewOnItemClickListener mOnItemClickListener;//声明接口

@@ -1,6 +1,7 @@
 package android.sgz.com.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.sgz.com.R;
 import android.sgz.com.adapter.MineSalaryAdapter;
@@ -12,6 +13,7 @@ import android.sgz.com.utils.ConfigUtil;
 import android.sgz.com.utils.StringUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,6 +68,29 @@ public class WorkDayNumActivity extends BaseActivity{
          adapter = new MineSalaryAdapter(this,mList);
         listView.setAdapter(adapter);
 
+        sestListener();
+    }
+
+    private void sestListener() {
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ProjectSalaryListBean.DataBean.ListBean bean = (ProjectSalaryListBean.DataBean.ListBean) adapterView.getAdapter().getItem(i);
+
+                if (bean != null) {
+                    Intent intent = new Intent(mContext, CardCountingActivity.class);
+                    int projectId = bean.getId();
+                    String projectName = bean.getName();
+                    intent.putExtra("projectName", projectName);
+                    intent.putExtra("projectId", projectId);
+                    startActivity(intent);
+
+
+                }
+            }
+        });
+
         listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -85,6 +110,7 @@ public class WorkDayNumActivity extends BaseActivity{
             }
         });
     }
+
     /***
      * 没有更多数据加载
      */

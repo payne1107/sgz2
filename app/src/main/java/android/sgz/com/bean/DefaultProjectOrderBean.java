@@ -11,7 +11,7 @@ public class DefaultProjectOrderBean {
      * success : true
      * resultCode : 1
      * resultMsg : SUCCESS
-     * data : {"project":{"id":10,"userid":16,"name":"算工资","categoryid":null,"regulatoryagency":null,"headman":"魏乐","mobile":null,"address":"合肥市合肥国家大学科技园(黄山路)","clockrange":500,"lng":117.21119,"lat":31.841102,"createtime":"2018-07-03 11:40","starttime":"2018-07-03 00:00","startworktime":"09:00","endworktime":"18:00","status":1,"worknum":null,"merchantid":null,"ifend":0,"endtime":null},"workRecord":{"id":null,"userid":null,"projectid":null,"startrecordtime":null,"endrecordtime":null,"startrecordaddress":null,"endrecordaddress":null,"startlat":null,"startlng":null,"endlat":null,"endlng":null,"daysalary":0,"allowance":0,"createtime":"2018-07-05 21:31:46","startstatus":4,"endstatus":4}}
+     * data : {"date":"2018-09-19","project":{"id":25,"userid":1,"name":"魏","categoryid":1,"regulatoryagency":null,"headman":"伟哥","mobile":"1333333333","address":"安徽省合肥市蜀山区","clockrange":3000,"lng":117.223434,"lat":31.859878,"createtime":"2018-07-04 21:27","starttime":"2018-07-04","startworktime":"21:27","endworktime":"21:27","status":1,"worknum":null,"merchantid":2,"ifend":0,"endtime":null},"workRecord":{"id":null,"userid":null,"projectid":null,"startrecordtime":null,"endrecordtime":null,"startrecordaddress":null,"endrecordaddress":null,"startlat":null,"startlng":null,"endlat":null,"endlng":null,"daysalary":0,"allowance":0,"createtime":"2018-09-19","startstatus":4,"endstatus":4,"remark":null,"operaremark":null}}
      * exception : false
      */
 
@@ -63,12 +63,22 @@ public class DefaultProjectOrderBean {
 
     public static class DataBean {
         /**
-         * project : {"id":10,"userid":16,"name":"算工资","categoryid":null,"regulatoryagency":null,"headman":"魏乐","mobile":null,"address":"合肥市合肥国家大学科技园(黄山路)","clockrange":500,"lng":117.21119,"lat":31.841102,"createtime":"2018-07-03 11:40","starttime":"2018-07-03 00:00","startworktime":"09:00","endworktime":"18:00","status":1,"worknum":null,"merchantid":null,"ifend":0,"endtime":null}
-         * workRecord : {"id":null,"userid":null,"projectid":null,"startrecordtime":null,"endrecordtime":null,"startrecordaddress":null,"endrecordaddress":null,"startlat":null,"startlng":null,"endlat":null,"endlng":null,"daysalary":0,"allowance":0,"createtime":"2018-07-05 21:31:46","startstatus":4,"endstatus":4}
+         * date : 2018-09-19
+         * project : {"id":25,"userid":1,"name":"魏","categoryid":1,"regulatoryagency":null,"headman":"伟哥","mobile":"1333333333","address":"安徽省合肥市蜀山区","clockrange":3000,"lng":117.223434,"lat":31.859878,"createtime":"2018-07-04 21:27","starttime":"2018-07-04","startworktime":"21:27","endworktime":"21:27","status":1,"worknum":null,"merchantid":2,"ifend":0,"endtime":null}
+         * workRecord : {"id":null,"userid":null,"projectid":null,"startrecordtime":null,"endrecordtime":null,"startrecordaddress":null,"endrecordaddress":null,"startlat":null,"startlng":null,"endlat":null,"endlng":null,"daysalary":0,"allowance":0,"createtime":"2018-09-19","startstatus":4,"endstatus":4,"remark":null,"operaremark":null}
          */
 
+        private String date;
         private ProjectBean project;
         private WorkRecordBean workRecord;
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
 
         public ProjectBean getProject() {
             return project;
@@ -88,24 +98,24 @@ public class DefaultProjectOrderBean {
 
         public static class ProjectBean {
             /**
-             * id : 10
-             * userid : 16
-             * name : 算工资
-             * categoryid : null
+             * id : 25
+             * userid : 1
+             * name : 魏
+             * categoryid : 1
              * regulatoryagency : null
-             * headman : 魏乐
-             * mobile : null
-             * address : 合肥市合肥国家大学科技园(黄山路)
-             * clockrange : 500
-             * lng : 117.21119
-             * lat : 31.841102
-             * createtime : 2018-07-03 11:40
-             * starttime : 2018-07-03 00:00
-             * startworktime : 09:00
-             * endworktime : 18:00
+             * headman : 伟哥
+             * mobile : 1333333333
+             * address : 安徽省合肥市蜀山区
+             * clockrange : 3000
+             * lng : 117.223434
+             * lat : 31.859878
+             * createtime : 2018-07-04 21:27
+             * starttime : 2018-07-04
+             * startworktime : 21:27
+             * endworktime : 21:27
              * status : 1
              * worknum : null
-             * merchantid : null
+             * merchantid : 2
              * ifend : 0
              * endtime : null
              */
@@ -113,7 +123,7 @@ public class DefaultProjectOrderBean {
             private int id;
             private int userid;
             private String name;
-            private String categoryid;
+            private int categoryid;
             private String regulatoryagency;
             private String headman;
             private String mobile;
@@ -127,7 +137,7 @@ public class DefaultProjectOrderBean {
             private String endworktime;
             private int status;
             private String worknum;
-            private String merchantid;
+            private int merchantid;
             private int ifend;
             private String endtime;
 
@@ -155,11 +165,11 @@ public class DefaultProjectOrderBean {
                 this.name = name;
             }
 
-            public String getCategoryid() {
+            public int getCategoryid() {
                 return categoryid;
             }
 
-            public void setCategoryid(String categoryid) {
+            public void setCategoryid(int categoryid) {
                 this.categoryid = categoryid;
             }
 
@@ -267,11 +277,11 @@ public class DefaultProjectOrderBean {
                 this.worknum = worknum;
             }
 
-            public String getMerchantid() {
+            public int getMerchantid() {
                 return merchantid;
             }
 
-            public void setMerchantid(String merchantid) {
+            public void setMerchantid(int merchantid) {
                 this.merchantid = merchantid;
             }
 
@@ -307,9 +317,11 @@ public class DefaultProjectOrderBean {
              * endlng : null
              * daysalary : 0
              * allowance : 0
-             * createtime : 2018-07-05 21:31:46
+             * createtime : 2018-09-19
              * startstatus : 4
              * endstatus : 4
+             * remark : null
+             * operaremark : null
              */
 
             private String id;
@@ -328,6 +340,8 @@ public class DefaultProjectOrderBean {
             private String createtime;
             private int startstatus;
             private int endstatus;
+            private String remark;
+            private String operaremark;
 
             public String getId() {
                 return id;
@@ -455,6 +469,22 @@ public class DefaultProjectOrderBean {
 
             public void setEndstatus(int endstatus) {
                 this.endstatus = endstatus;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
+            }
+
+            public String getOperaremark() {
+                return operaremark;
+            }
+
+            public void setOperaremark(String operaremark) {
+                this.operaremark = operaremark;
             }
         }
     }

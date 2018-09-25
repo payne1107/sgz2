@@ -30,6 +30,8 @@ import java.util.Map;
  */
 
 public class MineExpendActivity extends BaseActivity implements View.OnClickListener {
+
+    protected static final int WITHDRAW_DEPOSIT_TYPE_CODE = 1;
     private TextView tvExpendDetails;
     private TextView tvRechargeDetails;
     private TextView tvRecharge;
@@ -149,7 +151,7 @@ public class MineExpendActivity extends BaseActivity implements View.OnClickList
                 startActivity(new Intent(mContext, ExpendDetailsActivity.class));
                 break;
             case R.id.activity_set:
-                startActivity(new Intent(mContext, WithDrawDespositActivity.class).putExtra("withdrawalBalance", balance));
+                startActivity(new Intent(mContext, WithDrawDespositActivity.class).putExtra("withdrawalBalance", balance).putExtra("type",WITHDRAW_DEPOSIT_TYPE_CODE));
                 break;
         }
     }

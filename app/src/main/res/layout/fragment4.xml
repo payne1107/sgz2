@@ -106,6 +106,7 @@
                     android:drawableRight="@mipmap/icon_arrow_right" />
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoLinearLayout
+                android:visibility="gone"
                 android:id="@+id/layout_card_counting"
                 style="@style/PersonCenterLayoutStyle"
                 android:layout_marginTop="1px"

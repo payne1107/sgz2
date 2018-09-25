@@ -3,6 +3,10 @@ package android.sgz.com.utils;
 
 import android.sgz.com.application.MyApplication;
 
+import java.util.Map;
+
+import io.rong.imkit.RongIM;
+
 /**
  * Created by Administrator on 2017/9/29 0029.
  * 网络地址存放
@@ -448,4 +452,10 @@ public class ConfigUtil {
      */
     public static final String EDIT_PROJECT_WORK_STATUS_URL = MyApplication.REQUEST_URL + "projectwork/editProjectWorkSatatus";
     public static final int EDIT_PROJECT_WORK_STATUS_URL_ACTION = 86;
+    /***
+     * 我的财务 提现
+     */
+    public static final String MINE_FINANCE_WITHDRAW_DEPOSIT_URL = MyApplication.REQUEST_URL + "salary/toApplyFromBalance";
+    public static final int MINE_FINANCE_WITHDRAW_DEPOSIT_URL_ACTION = 87;
+
 }

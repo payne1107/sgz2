@@ -48,7 +48,9 @@ import java.util.Set;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import io.rong.imkit.RongIM;
+import io.rong.imkit.model.UIConversation;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -336,6 +338,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             });
         }
     }
+
 
     /****
      * 查询用户头像和昵称

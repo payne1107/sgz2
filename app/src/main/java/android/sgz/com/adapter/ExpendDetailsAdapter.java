@@ -3,6 +3,7 @@ package android.sgz.com.adapter;
 import android.content.Context;
 import android.sgz.com.R;
 import android.sgz.com.bean.ToRechargeDeailsBean;
+import android.sgz.com.utils.StringUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +69,11 @@ public class ExpendDetailsAdapter extends BaseAdapter{
             String time = bean.getCreatetime();
             String number =bean.getUserflowno();
             String money =bean.getTjmoney();
+            String remark = bean.getRemark();
+            String statusLabel = bean.getStatuslabel();
             holder.tvMoney.setText("-" + money + "元");
             holder.tvTime.setText("" + time);
-            holder.tvNumber.setText("" + number);
+            holder.tvNumber.setText(StringUtils.isEmpty(statusLabel) ? "" : statusLabel);
         }
         return view;
     }

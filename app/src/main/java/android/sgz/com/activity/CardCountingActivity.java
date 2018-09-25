@@ -80,6 +80,8 @@ public class CardCountingActivity extends BaseActivity implements View.OnClickLi
     protected void initView() {
         super.initView();
         setInVisibleTitleIcon("打卡统计", true, true);
+        projectId = getIntent().getIntExtra("projectId", 0);
+        projectName = getIntent().getStringExtra("projectName");
 
         layoutChooseDay = (AutoLinearLayout) findViewById(R.id.layout_choose_day);
         tvChooseDay = (TextView) findViewById(R.id.tv_choose_day);
@@ -200,7 +202,7 @@ public class CardCountingActivity extends BaseActivity implements View.OnClickLi
 //                } else {
 //                    toastMessage("没有工单统计数据");
 //                }
-                startActivity(new Intent(mContext, CardCountingDetailsActivity.class).putExtra("current_month", currentYearMoth));
+                startActivity(new Intent(mContext, CardCountingDetailsActivity.class).putExtra("current_month", currentYearMoth).putExtra("projectId", projectId).putExtra("projectName", projectName));
                 break;
         }
     }
@@ -222,6 +224,7 @@ public class CardCountingActivity extends BaseActivity implements View.OnClickLi
         startIOSDialogLoading(mContext,"加载中..");
         Map<String, String> params = new HashMap<>();
         params.put("month", currentYearMoth);
+        params.put("projectid", String.valueOf(projectId));
         httpPostRequest(ConfigUtil.QUERY_RECORD_BY_MONTH_URL, params, ConfigUtil.QUERY_RECORD_BY_MONTH_URL_ACTION);
     }
 
@@ -250,8 +253,8 @@ public class CardCountingActivity extends BaseActivity implements View.OnClickLi
                 int late = data.getLate();//迟到
                 int extraworkTime = data.getExtraworktime();//加班时长
                 int leave = data.getLeave();//早退
-                projectName = data.getProjectname();
-                projectId = data.getProjectid();
+                //projectName = data.getProjectname();
+                //projectId = data.getProjectid();
                 tvWorkDays.setText(attendance+"天");
                 tvLateCount.setText(late + "次");
                 tvLeaveCount.setText(leave + "次");

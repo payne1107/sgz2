@@ -4,6 +4,7 @@ import android.content.Context;
 import android.sgz.com.R;
 import android.sgz.com.activity.MineSalaryActivity;
 import android.sgz.com.bean.ProjectSalaryListBean;
+import android.sgz.com.utils.StringUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.zhy.autolayout.utils.AutoUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -62,6 +64,7 @@ public class MineSalaryAdapter extends BaseAdapter{
             holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tvAddTime = (TextView)convertView.findViewById(R.id.tv_addtime);
             holder.tvWorkDays = (TextView)convertView.findViewById(R.id.tv_work_days);
+            holder.tvSalary = convertView.findViewById(R.id.tv_salary);
             AutoUtils.autoSize(convertView);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -71,14 +74,25 @@ public class MineSalaryAdapter extends BaseAdapter{
             String name = bean.getName();
             int addTime = bean.getAddtime();
             int workDays = bean.getWorkdays();
+            double salary = bean.getSalary();
+            String addSalary = bean.getAddsalary(); //加班费
             holder.tvTitle.setText("" + name);
             holder.tvAddTime.setText("" + addTime+"小时");
-            holder.tvWorkDays.setText("" + workDays +"天");
+            holder.tvWorkDays.setText("" + workDays + "天");
+            if (!StringUtils.isEmpty(addSalary)) {
+                BigDecimal bigDecimal1 = new BigDecimal(Double.parseDouble(addSalary));
+                BigDecimal bigDecimal2 = new BigDecimal(salary);
+                double totalSalary = bigDecimal1.add(bigDecimal2).doubleValue();
+                holder.tvSalary.setText("" + totalSalary);
+            } else {
+                holder.tvSalary.setText("" + salary);
+            }
         }
         return convertView;
     }
 
     class ViewHolder{
         TextView tvTitle,tvAddTime,tvWorkDays;
+        public TextView tvSalary;
     }
 }

@@ -5,12 +5,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.sgz.com.activity.ContactsDetailsActivity;
 import android.sgz.com.httpstack.OkHttpStack;
 import android.sgz.com.utils.CacheImgUtil;
 import android.sgz.com.utils.CatchExceptionHandler;
 import android.sgz.com.utils.SPUtil;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -36,8 +39,10 @@ import java.util.Date;
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
+import io.rong.imlib.model.UserInfo;
 import io.rong.message.TextMessage;
 
 /**
@@ -114,7 +119,7 @@ public class MyApplication extends Application {
         //初始化
         UMConfigure.init(this, "5b348af1f43e480284000042", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
         //设置全局的异常捕获器
-       CatchExceptionHandler.getInstance().setDefaultUnCachExceptionHandler();
+        //CatchExceptionHandler.getInstance().setDefaultUnCachExceptionHandler();
         iwxapi = WXAPIFactory.createWXAPI(getApplicationContext(), wxAppID,true);
         iwxapi.registerApp(wxAppID);
         //融云初始化
@@ -154,6 +159,39 @@ public class MyApplication extends Application {
                 return false;
             }
         });
+
+        /***
+         * 头像点击事件
+         */
+        RongIM.setConversationBehaviorListener(new RongIM.ConversationBehaviorListener() {
+            @Override
+            public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+                startActivity(new Intent(context, ContactsDetailsActivity.class).putExtra("friendId", Integer.valueOf(userInfo.getUserId())));
+                return true;
+            }
+
+            @Override
+            public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+                return true;
+            }
+
+            @Override
+            public boolean onMessageClick(Context context, View view, Message message) {
+                return false;
+            }
+
+            @Override
+            public boolean onMessageLinkClick(Context context, String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onMessageLongClick(Context context, View view, Message message) {
+                return false;
+            }
+        });
+
+
     }
 
     //配置网络框架

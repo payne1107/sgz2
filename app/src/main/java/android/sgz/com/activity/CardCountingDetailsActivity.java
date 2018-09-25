@@ -53,6 +53,7 @@ public class CardCountingDetailsActivity extends BaseActivity implements View.On
     private TextView tvEndExtraTime;
     private TextView tvStartExtraTime;
     private AutoLinearLayout layoutContainer;
+    private String projectName;
 
     @Override
     protected void onCreateCustom(Bundle savedInstanceState) {
@@ -72,9 +73,9 @@ public class CardCountingDetailsActivity extends BaseActivity implements View.On
         final int month = DateUtils.getMonth();
         int day = DateUtils.getCurrentDayOfMonth();
 
-        projectId = getIntent().getIntExtra("projectId", 0);
         curentYearMonth = getIntent().getStringExtra("current_month");
-        String projectName =getIntent().getStringExtra("projectName");
+        projectName = getIntent().getStringExtra("projectName");
+        projectId = getIntent().getIntExtra("projectId", 0);
         clickDay = DateUtils.getCurrentDayOfMonth();
         //第一次进入用这个查询
         String firstYearMonth = curentYearMonth + "-" + (day < 10 ? "0" + day : day);
@@ -113,13 +114,13 @@ public class CardCountingDetailsActivity extends BaseActivity implements View.On
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MothWorkerStatusBean.DataBean bean = (MothWorkerStatusBean.DataBean) parent.getAdapter().getItem(position);
                 if (bean != null) {
-                    projectId = bean.getProjectid();
+                   // projectId = bean.getProjectid();
                     clickDay = Integer.valueOf(bean.getDate());
                     adapter.updateTextColor(position);
                     adapter.notifyDataSetChanged();
                     String month = curentYearMonth + "-" + (clickDay < 10 ? "0" + clickDay : clickDay);
                     if (projectId > 0) {
-                        String projectName = bean.getProjectname();
+//                        String projectName = bean.getProjectname();
                         tvProjectName.setText("项目名称：" + projectName);
                     }
                     queryWorkRecordByTime(projectId, month);
@@ -272,7 +273,7 @@ public class CardCountingDetailsActivity extends BaseActivity implements View.On
      */
     private void queryMonthWorkStatus() {
         Map<String, String> params = new HashMap<>();
-//        params.put("projectid", String.valueOf(projectId));
+        params.put("projectid", String.valueOf(projectId));
         params.put("month", curentYearMonth);
         httpPostRequest(ConfigUtil.QUERY_MONTH_WORKER_STATUS_URL, params, ConfigUtil.QUERY_MONTH_WORKER_STATUS_URL_ACTION);
     }

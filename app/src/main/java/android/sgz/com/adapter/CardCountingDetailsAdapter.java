@@ -93,33 +93,38 @@ public class CardCountingDetailsAdapter extends BaseAdapter {
 
         MothWorkerStatusBean.DataBean bean = mList.get(position);
         viewHolder.date_item.setText(bean.getDate());
-        Log.d("Dong", "日期-----》" + bean.getDate() + bean.getStartstatus());
+//        Log.d("Dong", "日期-----》" + bean.getDate() + bean.getStartstatus());
         if (bean.getStartstatus() == 1 && bean.getEndstatus() == 1) {
             //上班正常
             viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.white));
             viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
-        } else if (bean.getStartstatus() == 4 || bean.getEndstatus() == 4) {
+        } else if (bean.getStartstatus() == 4 && bean.getEndstatus() == 4) {
             //无考勤打卡记录
             viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.google_red));
             viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
-        } else if (bean.getStartstatus() == 2) {
-            //上班迟到
-            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.edcd71));
-            viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
-        } else if (bean.getEndstatus() == 3) {
-            //早退
+        } else if (bean.getStartstatus() == 2 && bean.getEndstatus() == 4) {
+            //上班迟到 下班未打卡
             viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.google_blue));
             viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
-        }  else {
-            //未知异常
-            Log.d("Dong", "else-------------->" + bean.getDate());
-            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.ff6000));
+        } else if (bean.getStartstatus() == 4 && bean.getEndstatus() == 3) {
+            //早退 上班卡没有打
+            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.google_blue));
+            viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
+        } else if (bean.getStartstatus() == 2 || bean.getEndstatus() == 3) {
+            //迟到早退就包含的情况
+            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.edcd71));
+            viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
+        } else if (bean.getStartstatus() == 1 && bean.getEndstatus() == 4) {
+            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.google_blue));
+            viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
+        } else if (bean.getStartstatus() == 4 && bean.getEndstatus() == 1) {
+            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.google_blue));
             viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item2));
         }
         setTextStyle(position);
         if (bean.getIfextrawork() == 1) {
             //已加班
-            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.white));
+//            viewHolder.date_item.setTextColor(mContext.getResources().getColor(R.color.white));
             viewHolder.date_item.setBackground(mContext.getResources().getDrawable(R.drawable.background_item3));
         }
         return view;

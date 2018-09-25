@@ -7,6 +7,7 @@ import android.sgz.com.adapter.ExpendDetailsAdapter;
 import android.sgz.com.base.BaseActivity;
 import android.sgz.com.bean.ToRechargeDeailsBean;
 import android.sgz.com.utils.ConfigUtil;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -116,6 +117,7 @@ public class ExpendDetailsActivity extends BaseActivity{
         if (listView != null && listView.isRefreshing()) {
             listView.onRefreshComplete();
         }
+        Log.d("Dong", "支出---->" + json);
         ToRechargeDeailsBean bean = JSON.parseObject(json, ToRechargeDeailsBean.class);
         if (bean != null) {
             ToRechargeDeailsBean.DataBean data = bean.getData();

@@ -28,10 +28,13 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content" />
 
-            <ImageView
-                android:visibility="gone"
+            <TextView
+                android:textSize="@dimen/text_size_26"
+                android:drawablePadding="3dp"
+                android:textColor="@color/color_62d"
+                android:text="打卡统计"
                 android:layout_marginRight="@dimen/margin_size_15"
-                android:src="@mipmap/icon_arrow_right"
+                android:drawableRight="@mipmap/icon_arrow_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -42,7 +45,28 @@
             android:layout_width="match_parent"
             android:layout_height="1px" />
         <com.zhy.autolayout.AutoLinearLayout
-            android:layout_marginTop="@dimen/margin_size_15"
+            android:layout_marginBottom="@dimen/margin_size_5"
+            android:layout_marginTop="@dimen/margin_size_5"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginLeft="@dimen/margin_size_15"
+                android:text="总工资："
+                android:textSize="@dimen/text_size_26"
+                android:textColor="@color/color_888"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_salary"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_28"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginTop="@dimen/margin_size_5"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -1215,6 +1215,9 @@ public abstract class BaseActivity extends FragmentActivity {
      * @return
      */
     public int getRequestCode(String json) {
+        if (StringUtils.isEmpty(json)) {
+            return 0;
+        }
         JSONObject object = JSONObject.parseObject(json);
         int resultCode = Integer.valueOf(object.getString("resultCode"));
         return resultCode;
@@ -1232,6 +1235,7 @@ public abstract class BaseActivity extends FragmentActivity {
                     try {
                         f.delete();
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     if (f.exists()) { // 判断是否存在
@@ -1239,7 +1243,7 @@ public abstract class BaseActivity extends FragmentActivity {
                         try {
                             f.delete();
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
                     }
                 }

@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSON;
 import com.itheima.pulltorefreshlib.PullToRefreshBase;
 import com.itheima.pulltorefreshlib.PullToRefreshListView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -271,7 +272,15 @@ public class PersonOrderSalaryActivity extends BaseActivity implements View.OnCl
                 tvProjectName.setText(projectName);
                 tvUserName.setText("" + realName);
                 tvWorkDays.setText("" + workdays+"天");
-                tvAllSalary.setText("" + allSalary);
+                if (!StringUtils.isEmpty(addSalary)) {
+                    //加上加班费
+                    BigDecimal bigDecimal1 = new BigDecimal(Double.parseDouble(addSalary));
+                    BigDecimal bigDecimal2 = new BigDecimal(allSalary);
+                    double totalSalary = bigDecimal1.add(bigDecimal2).doubleValue();
+                    tvAllSalary.setText("" + totalSalary);
+                } else {
+                    tvAllSalary.setText("" + allSalary);
+                }
                 tvAddSalary.setText(StringUtils.isEmpty(addSalary) ? "加班费:0" : "加班费：" + addSalary);
                 tvAllowance.setText("津贴：" + allowance);
                 tvAddWorkTime.setText("" + allAddTime + "小时");

@@ -7,10 +7,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.sgz.com.R;
 import android.sgz.com.application.MyApplication;
 import android.sgz.com.base.BaseActivity;
 import android.sgz.com.bean.VIPMemberCenterBasicInfoBean;
+import android.sgz.com.utils.CacheImgUtil;
 import android.sgz.com.utils.ConfigUtil;
 import android.sgz.com.utils.SDCardUtil;
 import android.sgz.com.utils.StringUtils;
@@ -22,8 +25,10 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.nanchen.compresshelper.CompressHelper;
 import com.zhy.autolayout.AutoLinearLayout;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,6 +63,7 @@ public class PersonDetailsActivity extends BaseActivity implements View.OnClickL
     private TextView tvPhone;
     private TextView tvCityName;
     private TextView tvSgin;
+    private Uri uritempFile;
 
     @Override
     protected void onCreateCustom(Bundle savedInstanceState) {
@@ -242,16 +248,9 @@ public class PersonDetailsActivity extends BaseActivity implements View.OnClickL
                     startPhotoZoom(imageUrl, false);
                     break;
                 case MyApplication.REQUEST_CODE_RESULT:
-                    if (data != null) {
-                        Bundle bundle = data.getExtras();
-                        if (bundle != null) {
-                            Bitmap bitmap = bundle.getParcelable("data");
-                            //将bitmap保存到本地，下次在获取可以从本地获取展示，之后在从网络获取显示
-                            circleImageView.setImageBitmap(bitmap);
-                            SDCardUtil.saveBitmap(bitmap, newPath);
-                            uploadImg(MyApplication.userId, newPath, ConfigUtil.UPLOAD_AVATAR_URL, 2);
-                        }
-                    }
+                    String photoPath = CacheImgUtil.getImageAbsolutePath(mContext, uritempFile);
+                    File newFile = CompressHelper.getDefault(getApplicationContext()).compressToFile(new File(photoPath));
+                    uploadImg(MyApplication.userId, newFile.getAbsolutePath(), ConfigUtil.UPLOAD_AVATAR_URL, 2);
                     break;
             }
         }
@@ -272,7 +271,11 @@ public class PersonDetailsActivity extends BaseActivity implements View.OnClickL
         /** outputX 越大，图片越大 */
         intent.putExtra("outputX", 80);
         intent.putExtra("outputY", 80);
-        intent.putExtra("return-data", true);
+//        intent.putExtra("return-data", true);
+        //uritempFile为Uri类变量，实例化uritempFile
+        uritempFile = Uri.parse("file://" + "/" + Environment.getExternalStorageDirectory().getPath() + "/" + "small.jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uritempFile);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         startActivityForResult(intent, MyApplication.REQUEST_CODE_RESULT);
     }
 

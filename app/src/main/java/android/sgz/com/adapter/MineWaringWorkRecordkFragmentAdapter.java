@@ -63,6 +63,8 @@ public class MineWaringWorkRecordkFragmentAdapter extends BaseAdapter {
             holder.tvAddress = view.findViewById(R.id.tv_address);
             holder.tvStatus = view.findViewById(R.id.tv_status);
             holder.tvRemark = view.findViewById(R.id.tv_remark);
+            holder.tvType = view.findViewById(R.id.tv_type);
+            holder.tvDate =view.findViewById(R.id.tv_date);
             AutoUtils.autoSize(view);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -71,6 +73,9 @@ public class MineWaringWorkRecordkFragmentAdapter extends BaseAdapter {
         if (bean != null) {
             WaringApplyListBean.DataBean.ListBean.ProjectBean projectBean = bean.getProject();
             String remark = bean.getRemark();
+            int type = bean.getType();
+            String applyTime = bean.getApplytime();
+            holder.tvType.setText(type == 1 ? "补卡类型：上班卡" : "补卡类型：下班卡");
             holder.tvRemark.setText(StringUtils.isEmpty(remark) ? "" : remark);
             if (projectBean != null) {
                 String projectName = projectBean.getName();
@@ -81,6 +86,7 @@ public class MineWaringWorkRecordkFragmentAdapter extends BaseAdapter {
                 holder.tvAddress.setText(StringUtils.isEmpty(address) ? "" : address);
                 holder.tvStartTime.setText(StringUtils.isEmpty(startWorkTime) ? "" : "起始时间："+startWorkTime);
                 holder.tvEndTime.setText(StringUtils.isEmpty(endWorkTime) ? "" : "结束时间："+ endWorkTime);
+                holder.tvDate.setText("补卡日期：" + applyTime);
             }
             int status = bean.getStatus();
             if (status == 1) {
@@ -101,5 +107,7 @@ public class MineWaringWorkRecordkFragmentAdapter extends BaseAdapter {
         TextView tvStatus;
         TextView tvAddress;
         TextView tvRemark;
+        public TextView tvType;
+        public TextView tvDate;
     }
 }

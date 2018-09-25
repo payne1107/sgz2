@@ -137,6 +137,15 @@ public class ToRechargeDeailsBean {
             private int status;
             private String sender;
             private String receiver;
+            private String statuslabel;
+
+            public String getStatuslabel() {
+                return statuslabel;
+            }
+
+            public void setStatuslabel(String statuslabel) {
+                this.statuslabel = statuslabel;
+            }
 
             public int getId() {
                 return id;

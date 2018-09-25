@@ -172,7 +172,7 @@
                 android:textSize="@dimen/text_size_30"
                 android:layout_marginLeft="@dimen/margin_size_15"
                 android:textColor="@color/color_62d"
-                android:text="修改工单名称"
+                android:text="编辑工单"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView

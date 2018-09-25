@@ -131,8 +131,8 @@ public class WaringApplyListBean {
             private long createtime;
             private int status;
             private int type;
-            private long applytime;
-            private long handletime;
+            private String applytime;
+            private String handletime;
 
             public int getId() {
                 return id;
@@ -206,19 +206,19 @@ public class WaringApplyListBean {
                 this.type = type;
             }
 
-            public long getApplytime() {
+            public String getApplytime() {
                 return applytime;
             }
 
-            public void setApplytime(long applytime) {
+            public void setApplytime(String applytime) {
                 this.applytime = applytime;
             }
 
-            public long getHandletime() {
+            public String getHandletime() {
                 return handletime;
             }
 
-            public void setHandletime(long handletime) {
+            public void setHandletime(String handletime) {
                 this.handletime = handletime;
             }
 

@@ -3,6 +3,7 @@ package android.sgz.com.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.sgz.com.R;
+import android.sgz.com.activity.Fragment2DetailsActivity;
 import android.sgz.com.activity.VipMemberCenterActivity;
 import android.sgz.com.adapter.AllProjectOrderAdapter;
 import android.sgz.com.application.MyApplication;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -154,28 +156,28 @@ public class Fragment2 extends BaseFragment implements View.OnClickListener {
 
 
         ////暂时不需要此功能
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                AllPorjectOrderBean.DataBean.ListBean bean = (AllPorjectOrderBean.DataBean.ListBean) adapterView.getAdapter().getItem(i);
-//                if (bean != null) {
-//                    String name = bean.getName();
-//                    String headMan = bean.getHeadman();//负责人
-//                    String address = bean.getAddress();
-//                    String categoryname = bean.getCategoryname();
-//                    String startTime = bean.getStarttime();
-//                    int projectId = bean.getId();
-//                    Intent intent = new Intent(getActivity(), Fragment2DetailsActivity.class);
-//                    intent.putExtra("name", name);
-//                    intent.putExtra("headMan", headMan);
-//                    intent.putExtra("address", address);
-//                    intent.putExtra("categoryname", categoryname);
-//                    intent.putExtra("startTime", startTime);
-//                    intent.putExtra("projectId", projectId);
-//                    startActivity(intent);
-//                }
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AllPorjectOrderBean.DataBean.ListBeanX.ListBean bean = (AllPorjectOrderBean.DataBean.ListBeanX.ListBean) adapterView.getAdapter().getItem(i);
+                if (bean != null) {
+                    String name = bean.getName();
+                    String headMan = bean.getHeadman();//负责人
+                    String address = bean.getAddress();
+                    String categoryname = bean.getCategoryname();
+                    String startTime = bean.getStarttime();
+                    int projectId = bean.getId();
+                    Intent intent = new Intent(getActivity(), Fragment2DetailsActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("headMan", headMan);
+                    intent.putExtra("address", address);
+                    intent.putExtra("categoryname", categoryname);
+                    intent.putExtra("startTime", startTime);
+                    intent.putExtra("projectId", projectId);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void delayedToast() {
@@ -226,9 +228,9 @@ public class Fragment2 extends BaseFragment implements View.OnClickListener {
         AllPorjectOrderBean bean = JSON.parseObject(json, AllPorjectOrderBean.class);
         if (bean != null) {
             AllPorjectOrderBean.DataBean data = bean.getData();
-            isVip = data.isVip();
-            SPUtil.putBoolean(getActivity(), "isVip", isVip);
             if (data != null) {
+                isVip = data.isVip();
+                SPUtil.putBoolean(getActivity(), "isVip", isVip);
                 AllPorjectOrderBean.DataBean.ListBeanX listBean = data.getList();
                 if (listBean != null) {
                     pageSize = listBean.getCoutpage();

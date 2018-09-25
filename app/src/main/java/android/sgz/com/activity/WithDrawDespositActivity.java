@@ -37,6 +37,7 @@ public class WithDrawDespositActivity extends BaseActivity implements View.OnCli
     private int bankId;
     private double withdrawalBalance;
     private int projectId;
+    private int withdrawDepositType; //type = 1 从我的财务进入 否则从我的工资进入工资提现需要加入项目id
 
     @Override
     protected void onCreateCustom(Bundle savedInstanceState) {
@@ -52,7 +53,6 @@ public class WithDrawDespositActivity extends BaseActivity implements View.OnCli
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
@@ -60,6 +60,9 @@ public class WithDrawDespositActivity extends BaseActivity implements View.OnCli
         super.initView();
         setInVisibleTitleIcon("提现", true, true);
         withdrawalBalance = getIntent().getDoubleExtra("withdrawalBalance", 0.0);
+
+        withdrawDepositType = getIntent().getIntExtra("type", 0);
+
         projectId = getIntent().getIntExtra("projectId", 0);
         etMonkey = (EditText) findViewById(R.id.et_money);
         layoutConfim = (AutoLinearLayout) findViewById(R.id.layout_confirm);
@@ -124,6 +127,13 @@ public class WithDrawDespositActivity extends BaseActivity implements View.OnCli
                     finish();
                 }
                 break;
+            case ConfigUtil.MINE_FINANCE_WITHDRAW_DEPOSIT_URL_ACTION:
+                if (getRequestCode(json) == 1) {
+                    toastMessage("提现成功");
+                    finish();
+                }
+                break;
+
         }
     }
 
@@ -137,10 +147,9 @@ public class WithDrawDespositActivity extends BaseActivity implements View.OnCli
                     String subBankName = data.getStringExtra("subBankName");
                     bankId = data.getIntExtra("bankId",0);
                     tvBindCard.setText("" + subBankName + (bankCardNo.substring(bankCardNo.length() - 4, bankCardNo.length())));
-
-                    Log.d("Dong", "-----------------------------------------------" + bankCardNo);
-                }
+                    }
                 break;
+
         }
     }
 
@@ -153,20 +162,33 @@ public class WithDrawDespositActivity extends BaseActivity implements View.OnCli
             toastMessage("提现金额不能为空");
             return;
         }
+
         if (Double.valueOf(money) > withdrawalBalance) {
             toastMessage("提现金额不能大于可提现余额");
             return;
         }
+
         if (bankId <= 0) {
             toastMessage("请绑定银行卡");
             return;
         }
+
+        if (Double.valueOf(money) < 300) {
+            toastMessage("提现金额不能小于300");
+            return;
+        }
+        startIOSDialogLoading(mContext,"提现中..");
         Map<String, String> params = new HashMap<>();
         params.put("tjmoney", money);
         params.put("userbankid", String.valueOf(bankId));
         if (projectId > 0) {
             params.put("projectid", String.valueOf(projectId));
         }
-        httpPostRequest(ConfigUtil.APPLY_CASH_URL, params, ConfigUtil.APPLY_CASH_URL_ACTION);
+        if (withdrawDepositType == 1) {
+            //我的财务提现
+            httpPostRequest(ConfigUtil.MINE_FINANCE_WITHDRAW_DEPOSIT_URL,params,ConfigUtil.MINE_FINANCE_WITHDRAW_DEPOSIT_URL_ACTION);
+        } else {
+            httpPostRequest(ConfigUtil.APPLY_CASH_URL, params, ConfigUtil.APPLY_CASH_URL_ACTION);
+        }
     }
 }
